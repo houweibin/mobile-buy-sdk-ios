@@ -62,10 +62,6 @@ typedef NS_ENUM(NSUInteger, BUYCheckoutError){
 	 */
 	BUYShopifyError_NoCreditCardSpecified,
 	/**
-	 *  No Apple Pay token was provided when attempting to complete a checkout using Apple Pay
-	 */
-	BUYShopifyError_NoApplePayTokenSpecified,
-	/**
 	 *  The checkout is invalid and does not have a checkout token. This generally means the BUYCheckout object
 	 *  has not been synced with Shopify via `createCheckout:completion:` before making subsequent calls to update
 	 *  or complete the checkout

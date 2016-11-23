@@ -28,7 +28,6 @@
 
 #import <Buy/Buy.h>
 
-#import "BUYApplePayPaymentProvider.h"
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYClientTestBase.h"
 #import "BUYPaymentController.h"
@@ -107,74 +106,6 @@ extern Class SafariViewControllerClass;
 }
 
 #pragma mark - Apple Pay
-
-- (void)testAppleAvailability
-{
-	BUYApplePayPaymentProvider *applePay = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.1"];
-	XCTAssertTrue(applePay.isAvailable);
-	
-	BUYApplePayPaymentProvider *applePay2 = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@""];
-	XCTAssertFalse(applePay2.isAvailable);
-}
-
-- (void)testApplePayPresentationCallbacks
-{
-	[self mockRequests];
-	
-	BUYApplePayPaymentProvider *applePay = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.1"];
-	applePay.delegate = self;
-	
-	self.expectations[@"presentController"] = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
-	[applePay startCheckout:self.checkout];
-	
-	[self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
-- (void)testApplePayProvider
-{
-	BUYApplePayPaymentProvider *applePay1 = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.1"];
-	XCTAssertEqualObjects(applePay1.merchantID, @"merchant.id.1");
-	
-	// 4 default networks should be configured
-	XCTAssertEqual(applePay1.supportedNetworks.count, 4);
-	
-	applePay1.supportedNetworks = @[PKPaymentNetworkMasterCard];
-	XCTAssertEqual(applePay1.supportedNetworks.count, 1);
-	XCTAssertEqualObjects(applePay1.supportedNetworks[0], PKPaymentNetworkMasterCard);
-}
-
-- (void)testCanShowApplePaySetup
-{
-	BUYApplePayPaymentProvider *applePay = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.1"];
-	XCTAssertTrue(applePay.canShowApplePaySetup);
-	
-	BUYApplePayPaymentProvider *applePay2 = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@""];
-	XCTAssertFalse(applePay2.canShowApplePaySetup);
-}
-
-- (void)testFailedApplePayCallbacks
-{
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return YES;
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithJSONObject:@{} statusCode:400 headers:nil];
-	}];
-	BUYApplePayPaymentProvider *applePay = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.1"];
-	applePay.delegate = self;
-	
-	self.expectations[@"failedCheckout"] = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	self.expectations[@"failedShop"] = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	[applePay startCheckout:self.checkout];
-	
-	[self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
 #pragma mark - Web
 
 - (void)testWebAvailability
@@ -201,30 +132,6 @@ extern Class SafariViewControllerClass;
 
 #pragma mark - Payment Controller
 
-- (void)testPaymentController
-{
-	BUYPaymentController *controller = [[BUYPaymentController alloc] init];
-	BUYApplePayPaymentProvider *applePay1 = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.1"];
-
-	[controller addPaymentProvider:applePay1];
-	
-	XCTAssertEqual(controller.providers.count, 1);
-	
-	id <BUYPaymentProvider> provider = [controller providerForType:BUYApplePayPaymentProviderId];
-	XCTAssertEqualObjects(provider, applePay1);
-	
-	BUYWebCheckoutPaymentProvider *webProvider = [[BUYWebCheckoutPaymentProvider alloc] initWithClient:self.client];
-	[controller addPaymentProvider:webProvider];
-	
-	XCTAssertEqual(controller.providers.count, 2);
-	provider = [controller providerForType:BUYWebPaymentProviderId];
-	XCTAssertEqualObjects(provider, webProvider);
-
-	// Attempt to add an alternate Apple Pay provider
-	BUYApplePayPaymentProvider *applePay2 = [[BUYApplePayPaymentProvider alloc] initWithClient:self.client merchantID:@"merchant.id.2"];
-	[controller addPaymentProvider:applePay2];
-	XCTAssertEqual(controller.providers.count, 2);
-}
 
 - (void)testStartingPaymentWithPaymentController
 {

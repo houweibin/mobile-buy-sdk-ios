@@ -63,9 +63,6 @@
 #import <Buy/BUYShopifyErrorCodes.h>
 
 // Checkout support
-#import <Buy/BUYApplePayAdditions.h>
-#import <Buy/BUYApplePayAuthorizationDelegate.h>
-#import <Buy/BUYApplePayPaymentProvider.h>
 #import <Buy/BUYPaymentController.h>
 #import <Buy/BUYPaymentProvider.h>
 #import <Buy/BUYWebCheckoutPaymentProvider.h>

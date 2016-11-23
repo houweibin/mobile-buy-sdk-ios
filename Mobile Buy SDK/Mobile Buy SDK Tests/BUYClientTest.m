@@ -34,8 +34,6 @@
 #import "BUYAccountCredentials.h"
 #import "BUYClient+Customers.h"
 #import "BUYClient+Internal.h"
-#import "BUYApplePayToken.h"
-#import "BUYApplePayTestToken.h"
 #import "BUYRequestOperation.h"
 
 @interface BUYClient_Test : BUYClient

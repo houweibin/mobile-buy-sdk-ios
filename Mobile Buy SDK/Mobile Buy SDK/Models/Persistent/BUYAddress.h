@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Check if the address does not include first and last name
  *  and address1 field. This is used to determine whether a
- *  placeholder was set for shipping rates calculations in Apple Pay.
  *
  *  @return True if first name, last name or address1 contain placeholders
  */
