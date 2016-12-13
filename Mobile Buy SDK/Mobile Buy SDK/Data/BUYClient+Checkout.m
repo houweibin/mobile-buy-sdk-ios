@@ -182,11 +182,12 @@
 - (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
 {
 	BUYCheckout *checkout = nil;
+	NSDictionary *dictionary = nil;
 	if (json && !error) {
 		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
-		checkout.JSONDictionary = json[@"checkout"];
+		dictionary = json[@"checkout"];
 	}
-	block(checkout, error);
+	block(dictionary, checkout, error);
 }
 
 #pragma mark - Shipping Rates -
@@ -248,6 +249,9 @@
 	NSURL *route = [self urlForCheckoutsUsingGiftCardWithToken:checkout.token];
 	
 	return [self postRequestForURL:route object:giftCard completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		NSDictionary *dictionary = nil;
+		
 		if (json && !error) {
 			
 			NSDictionary *giftCardJSON = json[@"gift_card"];
@@ -259,10 +263,12 @@
 			 * 'paymentDue' value and the gift 
 			 * card.
 			 */
+			
+			dictionary = giftCardJSON[@"checkout"];
 			checkout.JSONDictionary = giftCardJSON[@"checkout"];
 			[checkout addGiftCard:giftCard];
 		}
-		block(checkout, error);
+		block(dictionary, checkout, error);
 	}];
 }
 
@@ -273,6 +279,9 @@
 	
 	NSURL *route = [self urlForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
 	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		NSDictionary *dictionary = nil;
+		
 		if (json && !error) {
 			
 			NSDictionary *giftCardJSON = json[@"gift_card"];
@@ -284,10 +293,11 @@
 			 * 'paymentDue' value and the gift
 			 * card.
 			 */
+			dictionary = giftCardJSON[@"checkout"];
 			checkout.JSONDictionary = giftCardJSON[@"checkout"];
 			[checkout removeGiftCardWithIdentifier:giftCardID];
 		}
-		block(checkout, error);
+		block(dictionary, checkout, error);
 	}];
 }
 

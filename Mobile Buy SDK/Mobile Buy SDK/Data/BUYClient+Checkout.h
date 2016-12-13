@@ -49,7 +49,7 @@ typedef void (^BUYDataCreditCardBlock)(id<BUYPaymentToken> _Nullable paymentToke
  *  @param checkout The returned BUYCheckout
  *  @param error    Optional NSError
  */
-typedef void (^BUYDataCheckoutBlock)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
+typedef void (^BUYDataCheckoutBlock)(NSDictionary *_Nullable dictionary,BUYCheckout * _Nullable checkout, NSError * _Nullable error);
 
 /**
  *  Return block containing BUYShippingRate objects, a BUYStatus and/or an NSError
