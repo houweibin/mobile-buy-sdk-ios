@@ -184,6 +184,7 @@
 	BUYCheckout *checkout = nil;
 	if (json && !error) {
 		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
+		checkout.JSONDictionary = json[@"checkout"];
 	}
 	block(checkout, error);
 }
