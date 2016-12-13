@@ -103,7 +103,7 @@
 
 - (NSOperation *)createBeginOperation
 {
-	return [self.client beginCheckoutWithToken:self.checkoutToken paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
+	return [self.client beginCheckoutWithToken:self.checkoutToken paymentToken:self.token completion:^(NSDictionary *dictionary, BUYCheckout *checkout, NSError *error) {
 		if (!checkout) {
 			[self finishWithError:error];
 		}
