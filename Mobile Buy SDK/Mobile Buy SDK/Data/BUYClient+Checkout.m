@@ -105,7 +105,7 @@
 
 - (BUYOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYCheckoutOperationCompletion)block
 {
-	BUYCheckoutOperationCompletion *operation = [BUYCheckoutOperationCompletion operationWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
+	BUYCheckoutOperation *operation = [BUYCheckoutOperation operationWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
 	[self startOperation:operation];
 	return operation;
 }
