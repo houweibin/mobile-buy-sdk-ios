@@ -103,9 +103,9 @@
 	}];
 }
 
-- (BUYOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+- (BUYOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYCheckoutOperationCompletion)block
 {
-	BUYCheckoutOperation *operation = [BUYCheckoutOperation operationWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
+	BUYCheckoutOperationCompletion *operation = [BUYCheckoutOperationCompletion operationWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
 	[self startOperation:operation];
 	return operation;
 }
