@@ -115,7 +115,7 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 	
 	self.checkout = checkout;
 	
-	[self.client updateOrCreateCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client updateOrCreateCheckout:checkout completion:^(NSDictionary *dictionary, BUYCheckout *checkout, NSError *error) {
 		[self postCheckoutCompletion:checkout error:error];
 	}];
 }
