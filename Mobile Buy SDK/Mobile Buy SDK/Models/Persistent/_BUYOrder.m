@@ -36,6 +36,7 @@ const struct BUYOrderAttributes BUYOrderAttributes = {
 	.statusURL = @"statusURL",
 	.subtotalPrice = @"subtotalPrice",
 	.totalPrice = @"totalPrice",
+	.cancelled = @"cancelled",
 };
 
 const struct BUYOrderRelationships BUYOrderRelationships = {

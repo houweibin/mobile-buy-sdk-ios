@@ -38,6 +38,7 @@ extern const struct BUYOrderAttributes {
 	__unsafe_unretained NSString *statusURL;
 	__unsafe_unretained NSString *subtotalPrice;
 	__unsafe_unretained NSString *totalPrice;
+	__unsafe_unretained NSString *cancelled;
 } BUYOrderAttributes;
 
 extern const struct BUYOrderRelationships {
@@ -86,6 +87,8 @@ extern const struct BUYOrderUserInfo {
  * URL for the website showing the order status.
  */
 @property (nonatomic, strong) NSURL* orderStatusURL;
+
+@property (nonatomic, assign) BOOL cancelled;
 
 @property (nonatomic, strong) NSDate* processedAt;
 
