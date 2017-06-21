@@ -37,6 +37,7 @@ const struct BUYOrderAttributes BUYOrderAttributes = {
 	.subtotalPrice = @"subtotalPrice",
 	.totalPrice = @"totalPrice",
 	.cancelled = @"cancelled",
+	.currency = @"currency",
 };
 
 const struct BUYOrderRelationships BUYOrderRelationships = {
@@ -75,6 +76,8 @@ const struct BUYOrderUserInfo BUYOrderUserInfo = {
 @dynamic statusURL;
 @dynamic subtotalPrice;
 @dynamic totalPrice;
+@dynamic cancelled;
+@dynamic currency;
 #endif
 
 - (int64_t)identifierValue {
