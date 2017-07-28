@@ -30,6 +30,9 @@
 
 const struct BUYCartLineItemAttributes BUYCartLineItemAttributes = {
 	.quantity = @"quantity",
+	.title = @"title",
+	.variantId = @"variantId",
+	.variantTitle = @"variantTitle",
 };
 
 const struct BUYCartLineItemRelationships BUYCartLineItemRelationships = {
@@ -56,6 +59,9 @@ const struct BUYCartLineItemUserInfo BUYCartLineItemUserInfo = {
 
 #if defined CORE_DATA_PERSISTENCE
 @dynamic quantity;
+@dynamic title;
+@dynamic variantId;
+@dynamic variantTitle;
 #endif
 
 #if defined CORE_DATA_PERSISTENCE

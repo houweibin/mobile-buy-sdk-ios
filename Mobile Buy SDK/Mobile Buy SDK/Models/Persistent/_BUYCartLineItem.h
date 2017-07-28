@@ -32,6 +32,9 @@
 
 extern const struct BUYCartLineItemAttributes {
 	__unsafe_unretained NSString *quantity;
+	__unsafe_unretained NSString *title;
+	__unsafe_unretained NSString *variantId;
+	__unsafe_unretained NSString *variantTitle;
 } BUYCartLineItemAttributes;
 
 extern const struct BUYCartLineItemRelationships {
@@ -77,6 +80,13 @@ extern const struct BUYCartLineItemUserInfo {
  */
 
 @property (nonatomic, strong) BUYProductVariant *variant;
+
+
+@property (nonatomic, strong) NSString* title;
+
+@property (nonatomic, strong) NSNumber* variantId;
+
+@property (nonatomic, strong) NSString* variantTitle;
 
 @end
 
